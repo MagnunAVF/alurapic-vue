@@ -5,7 +5,7 @@
     <input
       type="search"
       class="filter"
-      v-on:input="filter = $event.target.value"
+      @input="filter = $event.target.value"
       placeholder="Filter by photo title"
     />
 
