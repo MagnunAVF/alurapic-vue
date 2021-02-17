@@ -2,10 +2,22 @@
   <div class="body">
     <h1 class="title">{{ title }}</h1>
 
+    <input
+      type="search"
+      class="filter"
+      v-on:input="filter = $event.target.value"
+      placeholder="Filter by photo title"
+    />
+
     <ul class="photos-list">
-      <li class="photos-list-item" v-for="photo of photos">
+      <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
-          <img slot="image" class="responsive-image" :src="photo.url" :alt="photo.title" />
+          <img
+            slot="image"
+            class="responsive-image"
+            :src="photo.url"
+            :alt="photo.title"
+          />
         </panel>
       </li>
     </ul>
@@ -23,8 +35,20 @@ export default {
   data() {
     return {
       title: "Alurapic",
-      photos: []
+      photos: [],
+      filter: ""
     };
+  },
+
+  computed: {
+    photosWithFilter() {
+      if(this.filter) {
+        let regex = new RegExp(this.filter.trim(), 'i');
+        return this.photos.filter(photo => regex.test(photo.title));
+      } else {
+        return this.photos;
+      }
+    }
   },
 
   created() {
@@ -59,6 +83,11 @@ export default {
 }
 
 .responsive-image {
+  width: 100%;
+}
+
+.filter {
+  display: block;
   width: 100%;
 }
 </style>
