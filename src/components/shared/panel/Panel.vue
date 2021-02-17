@@ -5,7 +5,7 @@
     </h2>
     <transition name="panel-fade">
       <div class="panel-content" v-show="visible">
-        <slot name="image"></slot>
+        <slot></slot>
       </div>
     </transition>
   </div>

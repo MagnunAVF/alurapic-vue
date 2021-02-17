@@ -12,12 +12,7 @@
     <ul class="photos-list">
       <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
-          <img
-            slot="image"
-            class="responsive-image"
-            :src="photo.url"
-            :alt="photo.title"
-          />
+          <responsive-image :url="photo.url" :title="photo.title"></responsive-image>
         </panel>
       </li>
     </ul>
@@ -26,10 +21,12 @@
 
 <script>
 import Panel from "./components/shared/panel/Panel.vue";
+import ResponsiveImage from "./components/shared/responsive-image/ResponsiveImage.vue";
 
 export default {
   components: {
-    panel: Panel
+    panel: Panel,
+    "responsive-image": ResponsiveImage
   },
 
   data() {
@@ -42,8 +39,8 @@ export default {
 
   computed: {
     photosWithFilter() {
-      if(this.filter) {
-        let regex = new RegExp(this.filter.trim(), 'i');
+      if (this.filter) {
+        let regex = new RegExp(this.filter.trim(), "i");
         return this.photos.filter(photo => regex.test(photo.title));
       } else {
         return this.photos;
@@ -80,10 +77,6 @@ export default {
 
 .photos-list .photos-list-item {
   display: inline-block;
-}
-
-.responsive-image {
-  width: 100%;
 }
 
 .filter {
