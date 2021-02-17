@@ -5,7 +5,7 @@
     <ul class="photos-list">
       <li class="photos-list-item" v-for="photo of photos">
         <panel :title="photo.title">
-          <img class="responsive-image" :src="photo.url" :alt="photo.title" />
+          <img slot="image" class="responsive-image" :src="photo.url" :alt="photo.title" />
         </panel>
       </li>
     </ul>

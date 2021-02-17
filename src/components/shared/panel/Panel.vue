@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <h2 class="panel-title">{{ title }}</h2>
-    <slot class="panel-content"></slot>
+    <slot name="image" class="panel-content"></slot>
   </div>
 </template>
 
