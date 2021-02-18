@@ -12,10 +12,14 @@
     <ul class="photos-list">
       <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
-          <responsive-image
-            :url="photo.url"
-            :title="photo.title"
-          ></responsive-image>
+          <responsive-image :url="photo.url" :title="photo.title" />
+          <custom-button
+            type="button"
+            label="REMOVE"
+            @activatedButton="remove(photo)"
+            :confirmation="true"
+            customStyle="danger"
+          />
         </panel>
       </li>
     </ul>
@@ -25,11 +29,15 @@
 <script>
 import Panel from "../shared/panel/Panel.vue";
 import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
+import Button from "../shared/button/Button.vue";
+
+const API_BASE_URL = 'http://localhost:3000';
 
 export default {
   components: {
     panel: Panel,
-    "responsive-image": ResponsiveImage
+    "responsive-image": ResponsiveImage,
+    "custom-button": Button
   },
 
   data() {
@@ -51,9 +59,24 @@ export default {
     }
   },
 
+  methods: {
+    remove(photo) {
+      const photoIdToDelete = photo._id;
+      this.$http
+        .delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`)
+        .then(
+          photos => {
+            console.log(`photo ${photoIdToDelete} deleted!`);
+            this.photos = this.photos.filter(photo => photo._id !== photoIdToDelete);
+          },
+          err => console.log(err)
+        );
+    }
+  },
+
   created() {
     this.$http
-      .get("http://localhost:3000/v1/photos")
+      .get(`${API_BASE_URL}/v1/photos`)
       .then(res => res.json())
       .then(
         photos => (this.photos = photos),
