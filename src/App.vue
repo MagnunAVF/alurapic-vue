@@ -10,7 +10,9 @@
       </ul>
     </nav>
 
-    <router-view></router-view>
+    <transition name="page">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -33,4 +35,11 @@ export default {
   width: 96%;
 }
 
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .4s
+}
 </style>
