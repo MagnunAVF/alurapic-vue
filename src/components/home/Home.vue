@@ -13,7 +13,7 @@
       <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
           <responsive-image
-            v-transform.animate.reverse="15"
+            v-transform:scale.animate="1.2"
             :url="photo.url"
             :title="photo.title"
           />
