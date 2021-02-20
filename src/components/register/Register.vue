@@ -9,7 +9,7 @@
         <input
           id="title"
           autocomplete="off"
-          v-model="photo.title"
+          v-model.lazy="photo.title"
         />
       </div>
 
@@ -18,9 +18,9 @@
         <input
           id="url"
           autocomplete="off"
-          v-model="photo.url"
+          v-model.lazy="photo.url"
         />
-        <responsive-image title="" url="" />
+        <responsive-image v-show="photo.url" :title="photo.title" :url="photo.url" />
       </div>
 
       <div class="control">
