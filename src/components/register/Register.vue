@@ -1,27 +1,42 @@
 <template>
   <div>
     <h1 class="centered">Photo Register</h1>
-    <h2 class="centered"></h2>
+    <h2 class="centered">{{ photo.title }}</h2>
 
-    <form>
+    <form @submit.prevent="save()">
       <div class="control">
         <label for="title">Title</label>
-        <input id="title" autocomplete="off" />
+        <input
+          id="title"
+          autocomplete="off"
+          :value = photo.title
+          @input="photo.title = $event.target.value"
+        />
       </div>
 
       <div class="control">
         <label for="url">URL</label>
-        <input id="url" autocomplete="off" />
-        <responsive-image title="" url=""/>
+        <input
+          id="url"
+          autocomplete="off"
+          :value = photo.url
+          @input="photo.url = $event.target.value"
+        />
+        <responsive-image title="" url="" />
       </div>
 
       <div class="control">
         <label for="description">Description</label>
-        <textarea id="description" autocomplete="off"></textarea>
+        <textarea
+          id="description"
+          autocomplete="off"
+          :value = photo.description
+          @input="photo.description = $event.target.value"
+        ></textarea>
       </div>
 
       <div class="centered">
-        <custom-button label="Save" type="submit"/>
+        <custom-button label="Save" type="submit" />
         <router-link to="/"
           ><custom-button label="return" type="button"
         /></router-link>
@@ -38,9 +53,34 @@ export default {
   components: {
     "responsive-image": ResponsiveImage,
     "custom-button": Button
+  },
+
+  data() {
+    return {
+      photo: {
+        title: '',
+        url: '',
+        description: '',
+      }
+    }
+  },
+
+  methods: {
+    save() {
+      console.log('Send data to api!');
+      console.log(this.photo);
+
+      // clear fields in success case
+      this.photo = {
+        title: '',
+        url: '',
+        description: '',
+      }
+    }
   }
 };
 </script>
+
 <style scoped>
 .centered {
   text-align: center;
