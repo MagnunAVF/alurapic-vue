@@ -9,8 +9,7 @@
         <input
           id="title"
           autocomplete="off"
-          :value = photo.title
-          @input="photo.title = $event.target.value"
+          v-model="photo.title"
         />
       </div>
 
@@ -19,8 +18,7 @@
         <input
           id="url"
           autocomplete="off"
-          :value = photo.url
-          @input="photo.url = $event.target.value"
+          v-model="photo.url"
         />
         <responsive-image title="" url="" />
       </div>
@@ -30,8 +28,7 @@
         <textarea
           id="description"
           autocomplete="off"
-          :value = photo.description
-          @input="photo.description = $event.target.value"
+          v-model="photo.description"
         ></textarea>
       </div>
 
