@@ -36,7 +36,7 @@
 
       <div class="centered">
         <custom-button label="Save" type="submit" />
-        <router-link to="/"
+        <router-link :to="{ name: 'home' }"
           ><custom-button label="return" type="button"
         /></router-link>
       </div>
