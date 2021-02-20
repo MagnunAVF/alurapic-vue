@@ -3,6 +3,8 @@
     <h1 class="centered">Photo Register</h1>
     <h2 class="centered">{{ photo.title }}</h2>
 
+    <p v-show="message" class="centered">{{ message }}</p>
+
     <form @submit.prevent="save()">
       <div class="control">
         <label for="title">Title</label>
@@ -57,7 +59,8 @@ export default {
 
   data() {
     return {
-      photo: new Photo()
+      photo: new Photo(),
+      message: "",
     }
   },
 
@@ -65,8 +68,14 @@ export default {
     save() {
       this.$http.post(`${API_BASE_URL}/v1/photos`, this.photo)
         .then(
-          () => this.photo = new Photo(),
-          err => console.log(err)
+          () => {
+            this.photo = new Photo();
+            this.message = "Image added with success!";
+          },
+          err => {
+            console.log(err);
+            this.message = "Couldn't add photo!"
+          }
         );
     }
   }
