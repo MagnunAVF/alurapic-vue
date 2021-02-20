@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="centered">{{ title }}</h1>
+
+    <p v-show="message" class="centered">{{ message }}</p>
 
     <input
       type="search"
@@ -54,7 +56,8 @@ export default {
     return {
       title: "Alurapic",
       photos: [],
-      filter: ""
+      filter: "",
+      message: "",
     };
   },
 
@@ -72,15 +75,19 @@ export default {
   methods: {
     remove(photo) {
       const photoIdToDelete = photo._id;
-      this.$http.delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`).then(
-        photos => {
-          console.log(`photo ${photoIdToDelete} deleted!`);
-          this.photos = this.photos.filter(
-            photo => photo._id !== photoIdToDelete
-          );
-        },
-        err => console.log(err)
-      );
+      this.$http.delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`)
+        .then(
+          () => {
+            // remove deleted photo from photos list
+            let index = this.photos.indexOf(photo);
+            this.photos.splice(index, 1);
+            this.message = `${photo.title} photo deleted!`;
+          },
+          err => {
+            console.log(err);
+            this.message = `Couldn't delete ${photo.title} photo!`;
+          }
+        );
     }
   },
 
@@ -97,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss">
-.title {
+.centered {
   text-align: center;
 }
 
