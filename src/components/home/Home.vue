@@ -13,7 +13,7 @@
       <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
           <responsive-image
-            v-transform:scale.animate="1.2"
+            v-transform:rotate.animate="45"
             :url="photo.url"
             :title="photo.title"
           />
@@ -35,6 +35,8 @@ import Panel from "../shared/panel/Panel.vue";
 import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
 import Button from "../shared/button/Button.vue";
 
+import Transform from '../../directives/Transform';
+
 const API_BASE_URL = "http://localhost:3000";
 
 export default {
@@ -42,6 +44,10 @@ export default {
     panel: Panel,
     "responsive-image": ResponsiveImage,
     "custom-button": Button
+  },
+
+  directives: {
+    'transform': Transform
   },
 
   data() {

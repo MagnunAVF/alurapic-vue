@@ -1,6 +1,4 @@
-import Vue from 'vue';
-
-Vue.directive('transform', {
+export default {
   bind(el, binding, vnode) {
     // deg origin reference
     let current = 0;
@@ -26,4 +24,4 @@ Vue.directive('transform', {
       if (binding.modifiers.animate) el.style.transition = 'transform 0.5s';
     });
   }
-});
+}
