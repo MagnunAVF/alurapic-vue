@@ -45,6 +45,7 @@
 <script>
 import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
 import Button from "../shared/button/Button.vue";
+import Photo from "../../domain/photo/Photo";
 
 export default {
   components: {
@@ -54,11 +55,7 @@ export default {
 
   data() {
     return {
-      photo: {
-        title: '',
-        url: '',
-        description: '',
-      }
+      photo: new Photo()
     }
   },
 
@@ -68,11 +65,7 @@ export default {
       console.log(this.photo);
 
       // clear fields in success case
-      this.photo = {
-        title: '',
-        url: '',
-        description: '',
-      }
+      this.photo = new Photo()
     }
   }
 };
