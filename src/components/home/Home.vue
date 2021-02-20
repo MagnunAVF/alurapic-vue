@@ -36,8 +36,8 @@
 import Panel from "../shared/panel/Panel.vue";
 import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
 import Button from "../shared/button/Button.vue";
-
 import Transform from '../../directives/Transform';
+import PhotoService from '../../domain/photo/PhotoService';
 
 export default {
   components: {
@@ -72,8 +72,7 @@ export default {
 
   methods: {
     remove(photo) {
-      const photoIdToDelete = photo._id;
-      this.$http.delete(`v1/photos/${photoIdToDelete}`)
+      this.service.delete(photo._id)
         .then(
           () => {
             // remove deleted photo from photos list
@@ -91,8 +90,9 @@ export default {
 
   // load photos after component create
   created() {
-    this.$http.get('v1/photos')
-      .then(res => res.json())
+    this.service = new PhotoService(this.$resource);
+
+    this.service.list()
       .then(
         photos => (this.photos = photos),
         err => console.log(err)
