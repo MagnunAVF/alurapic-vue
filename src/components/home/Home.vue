@@ -12,7 +12,11 @@
     <ul class="photos-list">
       <li class="photos-list-item" v-for="photo of photosWithFilter">
         <panel :title="photo.title">
-          <responsive-image :url="photo.url" :title="photo.title" />
+          <responsive-image
+            v-transform="{ increment: 15, animate: true }"
+            :url="photo.url"
+            :title="photo.title"
+          />
           <custom-button
             type="button"
             label="REMOVE"
@@ -31,7 +35,7 @@ import Panel from "../shared/panel/Panel.vue";
 import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
 import Button from "../shared/button/Button.vue";
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = "http://localhost:3000";
 
 export default {
   components: {
@@ -62,15 +66,15 @@ export default {
   methods: {
     remove(photo) {
       const photoIdToDelete = photo._id;
-      this.$http
-        .delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`)
-        .then(
-          photos => {
-            console.log(`photo ${photoIdToDelete} deleted!`);
-            this.photos = this.photos.filter(photo => photo._id !== photoIdToDelete);
-          },
-          err => console.log(err)
-        );
+      this.$http.delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`).then(
+        photos => {
+          console.log(`photo ${photoIdToDelete} deleted!`);
+          this.photos = this.photos.filter(
+            photo => photo._id !== photoIdToDelete
+          );
+        },
+        err => console.log(err)
+      );
     }
   },
 
