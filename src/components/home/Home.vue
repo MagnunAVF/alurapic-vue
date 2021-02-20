@@ -39,8 +39,6 @@ import Button from "../shared/button/Button.vue";
 
 import Transform from '../../directives/Transform';
 
-const API_BASE_URL = "http://localhost:3000";
-
 export default {
   components: {
     panel: Panel,
@@ -75,7 +73,7 @@ export default {
   methods: {
     remove(photo) {
       const photoIdToDelete = photo._id;
-      this.$http.delete(`${API_BASE_URL}/v1/photos/${photoIdToDelete}`)
+      this.$http.delete(`v1/photos/${photoIdToDelete}`)
         .then(
           () => {
             // remove deleted photo from photos list
@@ -91,9 +89,9 @@ export default {
     }
   },
 
+  // load photos after component create
   created() {
-    this.$http
-      .get(`${API_BASE_URL}/v1/photos`)
+    this.$http.get('v1/photos')
       .then(res => res.json())
       .then(
         photos => (this.photos = photos),
