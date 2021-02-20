@@ -47,6 +47,8 @@ import ResponsiveImage from "../shared/responsive-image/ResponsiveImage.vue";
 import Button from "../shared/button/Button.vue";
 import Photo from "../../domain/photo/Photo";
 
+const API_BASE_URL = "http://localhost:3000";
+
 export default {
   components: {
     "responsive-image": ResponsiveImage,
@@ -61,11 +63,11 @@ export default {
 
   methods: {
     save() {
-      console.log('Send data to api!');
-      console.log(this.photo);
-
-      // clear fields in success case
-      this.photo = new Photo()
+      this.$http.post(`${API_BASE_URL}/v1/photos`, this.photo)
+        .then(
+          () => this.photo = new Photo(),
+          err => console.log(err)
+        );
     }
   }
 };
